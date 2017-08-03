@@ -1,0 +1,6 @@
+// mutations
+export const ADD_PRODLISTDATA = 'ADD_PRODLISTDATA'
+
+
+// actions
+export const ADD_PRODLISTDATA_ACTION = 'ADD_PRODLISTDATA_ACTION'
