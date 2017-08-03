@@ -1,6 +1,6 @@
 # vue-list-view
 
-> A Vue.js project
+> 一个列表无限下拉DOM回收的小DEMO
 
 ## Build Setup
 
