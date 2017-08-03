@@ -1,6 +1,6 @@
 # vue-list-view
 
-> 一个列表无限下拉DOM回收的小DEMO
+> 一个基于vue的列表无限下拉DOM回收的小DEMO
 
 ## Build Setup
 
