@@ -16,26 +16,30 @@ export default {
     },
     actions: {
         [getProdListData.ADD_PRODLISTDATA_ACTION]: function (context) {
-            return new Promise((resolveA, reject) => {
-                let url = '../../../static/data/data.json';
-                
-                Vue.http.get(url).then(
-                    function (resolve) {
-                        
-                        let data = resolve.data;
-                        
-                        console.log(resolve);
-                        
-                        context.commit(getProdListData.ADD_PRODLISTDATA, data);   
 
-                        resolveA();
-                    }
-                ).catch(
+            return new Promise((resolveA, reject) => {
+
+                let url = '../../../static/data/data.json';
+
+                Vue.http.get(url).then(function (resolve) {
+
+                    let data = resolve.data;
+
+                    console.log(resolve);
+
+                    context.commit(getProdListData.ADD_PRODLISTDATA, data);
+
+                    resolveA();
+
+                }).catch(
+
                     function (err) {
                         console.log(err)
                     }
-                )
-            });    
+
+                    )
+            });
+                
         }
     }
 }

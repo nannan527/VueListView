@@ -14,7 +14,7 @@ import VueLazyload from 'vue-lazyload'
 // 使用vue插件
 Vue.use(VueResource)
 Vue.use(VueLazyload, {
-    loading: '/static/img/loading.gif'
+  loading: '/static/img/loading.gif'
 })
 
 // 绑定路由

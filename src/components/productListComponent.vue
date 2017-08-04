@@ -1,27 +1,46 @@
 <style scoped lang="less">
+.wrap--scroll {
+    padding: 30px 20px;
+}
 
-    .wrap--scroll { padding:30px 20px;}
+.navigation-tit {
+    display: flex;
+    align-items: center;
+}
 
-    .navigation-tit { display: flex;align-items: center;}
-    h1 { flex:1; color:#E5DAC7; font-size: 48px;}
+h1 {
+    flex: 1;
+    color: #E5DAC7;
+    font-size: 48px;
+}
 
 
-    .filter { margin-left:auto; display:flex; right:10px; top:40px; z-index:20;}
+.filter {
+    margin-left: auto;
+    display: flex;
+    right: 10px;
+    top: 40px;
+    z-index: 20;
+}
 
-    .product-list { display: flex; flex-flow:row wrap;margin:20px -22px;
-        li { margin:0 24px 50px;}
+.product-list {
+    display: flex;
+    flex-flow: row wrap;
+    margin: 20px -22px;
+    li {
+        margin: 0 24px 50px;
     }
-
+}
 </style>
 
 
 <template>
     <div class="wrap--scroll" @scroll="handleScroll">
-         <ul class="product-list" ref="prodList" :style="{paddingTop: lineTopHeight +'px',paddingBottom: lineBottomHeight +'px'}">
-             <li v-for="(item, index) in previewList " :key="index">
-                 <product-item-component :prodItem ="item"/>
-             </li>
-         </ul>
+        <ul class="product-list" ref="prodList" :style="{paddingTop: lineTopHeight +'px',paddingBottom: lineBottomHeight +'px'}">
+            <li v-for="(item, index) in previewList " :key="index">
+                <product-item-component :prodItem="item" />
+            </li>
+        </ul>
     </div>
 </template>
 
@@ -39,9 +58,9 @@ import productItemComponent from '../components/productItemComponent'
 
 export default {
     name: 'productListComponent',
-    components:{ productItemComponent},
-    data(){
-        return{
+    components: { productItemComponent },
+    data() {
+        return {
             /* 无限加载参数 */
             lastScrollTop: null,
             distance: 44,
@@ -51,18 +70,18 @@ export default {
             previewList: [],
             displayCount: 0,
             itemHeight: 357,
-            itemWidth:328,
+            itemWidth: 328,
             canScroll: true
         }
     },
-    mounted () {
+    mounted() {
         // 获取数据
         this.getProdListData();
     },
     methods: {
-        getProdListData () {//获取数据
+        getProdListData() {//获取数据
             // 获取导航列表
-           this.$store.dispatch(getProdListData.ADD_PRODLISTDATA_ACTION).then(() => {
+            this.$store.dispatch(getProdListData.ADD_PRODLISTDATA_ACTION).then(() => {
                 //获取数据
                 this.previewList = this.prodListData;
                 //切换页面重置视窗
@@ -73,7 +92,7 @@ export default {
             });
 
         },
-        resetView () {//切换页面重置视窗
+        resetView() {//切换页面重置视窗
             this.lineTopHeight = 0;
             this.lineBottomHeight = 0;
             this.$el.scrollTop = 0;
@@ -87,7 +106,7 @@ export default {
             this._max = this._rowsInWindow * this.itemHeight; // 可视区域最大距离
             this._column = ~~(this.$el.offsetWidth / this.itemWidth); // 计算一列几个元素
         },
-        handleScroll () {
+        handleScroll() {
             let _scrollTop = this.$el.scrollTop,//滚动距离
                 _height = this.$refs.prodList.offsetHeight,//产品列表的高度
                 _contentHeight = this.$el.offsetHeight;//屏幕容器的距离
@@ -106,14 +125,14 @@ export default {
             if (this.lastScrollTop === null || Math.abs(_scrollTop - this.lastScrollTop) > this._max) {
                 this.lastScrollTop = _scrollTop;
             } else {
-                if (this.to === _dataLen && _height - _scrollTop - _contentHeight < this.distance){
+                if (this.to === _dataLen && _height - _scrollTop - _contentHeight < this.distance) {
                     this.canScroll && this.loadmore(this.from, this.to);
                 }
                 return;
             }
 
             // 计算数据取出的开始值和结束值
-            let _from = (parseInt(_rowsInScrollTop) - this._above) * this._column ;
+            let _from = (parseInt(_rowsInScrollTop) - this._above) * this._column;
             if (_from < 0) {
                 _from = 0;
             }
@@ -132,18 +151,18 @@ export default {
             this.resetPreviewList(this.from, this.to);
 
         },
-        loadmore (from, to) {
+        loadmore(from, to) {
             if (!this.canLoadmore) return;
             this.canLoadmore = false;
             // fetch mock
             let id = 'id=0001';
             // 获取数据
             this.$store.dispatch(getProdListData.ADD_PRODLISTDATA_ACTION).then(() => {
-                    let data = this.prodListData;//数据
-                    let _from = from, _to = to + this._below * this._column;
-                    this.resetPreviewList(_from, _to);
-                    this.lineBottomHeight = (data.length - _to) * this.itemHeight;
-                    this.canLoadmore = true;
+                let data = this.prodListData;//数据
+                let _from = from, _to = to + this._below * this._column;
+                this.resetPreviewList(_from, _to);
+                this.lineBottomHeight = (data.length - _to) * this.itemHeight;
+                this.canLoadmore = true;
             });
 
         },
@@ -151,7 +170,7 @@ export default {
             //reset previewList
             let data = this.prodListData;//数据
             this.previewList = [];
-            for (; from < to; from ++) {
+            for (; from < to; from++) {
                 this.previewList.push(data[from])
             }
 
@@ -164,7 +183,7 @@ export default {
         })
     },
     watch: {
-        '$route' (to, from) {
+        '$route'(to, from) {
             // 获取数据
             this.getProdListData();
         }
