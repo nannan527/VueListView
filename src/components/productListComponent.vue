@@ -62,8 +62,7 @@ export default {
     methods: {
         getProdListData () {//获取数据
             // 获取导航列表
-            let id = 'id=0001';
-            this.$store.dispatch(getProdListData.ADD_PRODLISTDATA_ACTION, id).then(() => {
+           this.$store.dispatch(getProdListData.ADD_PRODLISTDATA_ACTION).then(() => {
                 //获取数据
                 this.previewList = this.prodListData;
                 //切换页面重置视窗
@@ -139,7 +138,7 @@ export default {
             // fetch mock
             let id = 'id=0001';
             // 获取数据
-            this.$store.dispatch(getProdListData.ADD_PRODLISTDATA_ACTION, id).then(() => {
+            this.$store.dispatch(getProdListData.ADD_PRODLISTDATA_ACTION).then(() => {
                     let data = this.prodListData;//数据
                     let _from = from, _to = to + this._below * this._column;
                     this.resetPreviewList(_from, _to);

@@ -15,9 +15,9 @@ export default {
         }
     },
     actions: {
-        [getProdListData.ADD_PRODLISTDATA_ACTION]: function (context, id) {
+        [getProdListData.ADD_PRODLISTDATA_ACTION]: function (context) {
             return new Promise((resolveA, reject) => {
-                let url = ApiUrl + 'ProdIndex/?' + id;
+                let url = '../../../static/data/data.json';
                 
                 Vue.http.get(url).then(
                     function (resolve) {
