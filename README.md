@@ -1,4 +1,4 @@
-# vue-list-view
+# Vue List View
 
 > 一个基于vue的列表无限下拉DOM回收的小DEMO
 
